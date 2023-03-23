@@ -9,7 +9,7 @@ import accueil from "@/pages/accueil.vue";
 import formulaireConnexion from "@/components/FormulaireConnexion.vue";
 import home from "@/pages/home.vue";
 import add from "@/pages/add.vue";
-
+//toutes les routes sont bloquer si il y a pas le un cookie token
 const routes = [
     { path: '/', component: accueil },
     {path: '/home', component: home},
@@ -26,5 +26,6 @@ const router = createRouter({
 const app = createApp(App)
 const pinia = createPinia()
 app.use(router)
+
 app.use(pinia)
 app.mount('#app')

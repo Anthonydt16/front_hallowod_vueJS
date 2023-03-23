@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "add",
   methods: {
@@ -35,16 +37,17 @@ export default {
       let file = document.getElementById("myFile").files[0];
       let reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onloadend = function () {
+      reader.onloadend = async function () {
         // lire la base64 en .txt et l'enregistrer
         let base64data = reader.result;
         let text = atob(base64data.split(',')[1]);
         //split avec un regex
-        let days = [ "vide", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
+        let days = ["vide", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
         let array = text.split(/Lundi|Mardi|Mercredi|Jeudi|Vendredi|Samedi|Dimanche/g);
         //json sera la variable envoyer au serveur
         let json = {};
-        array.forEach((el, index) => {
+        for (const el of array) {
+          const index = array.indexOf(el);
           //Split ou il y a plus de 2 \n
           let ele = el.split(/[\r\n]{2,}/g);
           json = {
@@ -52,19 +55,20 @@ export default {
             [days[index]]: {
               warmUp: [],
               skills: [],
-              date_entrainement:null
+              date_entrainement: null
             }
           }
-          ele.forEach((e, key) => {
+          for (const e of ele) {
+            const key = ele.indexOf(e);
             if (e !== "" && e.length >= 3) {
               //si e contient le mot perform dans la phrase
               if (e.match(/perform /g)) {
                 let skills = ele.filter((element, index) => {
-                  if(index > key)
+                  if (index > key)
                     return element;
                 });
                 let warmUp = ele.filter((element, index) => {
-                  if(index < key){
+                  if (index < key) {
                     return element;
                   }
                 });
@@ -86,17 +90,32 @@ export default {
                 console.log(skills, "skills");
                 json[days[index]].warmUp = warmUp;
                 json[days[index]].skills = skills;
-                if(days[index] !== "vide"){
-                  console.log(index)
+                if (days[index] !== "vide") {
+
                   json[days[index]].date_entrainement = getDaysToDate(index);
+
+                  let data = await axios.post("http://localhost:4000/api/entrainement/", {
+                    date: json[days[index]].date_entrainement,
+                    warm_up: json[days[index]].warmUp,
+                    skills: json[days[index]].skills,
+                    idUser: localStorage.getItem("idUser")
+                  },
+                    {
+                      headers: {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Origin": "*",
+                        "x-access-token" : localStorage.getItem("token")
+                      }
+                    });
+                  console.log(data);
                 }
 
               }
             }
-          });
+          }
           console.log(ele);
           console.log(json);
-        });
+        }
       }
     }
   }

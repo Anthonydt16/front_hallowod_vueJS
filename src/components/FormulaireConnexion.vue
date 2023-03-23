@@ -43,11 +43,16 @@ export default {
             'Access-Control-Allow-Origin': '*',
           }
         }
-        let token = await axios.post("http://localhost:4000/api/user/login", {
-          name: this.name,
+        let data = await axios.post("http://localhost:4000/api/user/login", {
+          identifiant: this.name,
           password: this.password
         }, config);
-        console.log(token);
+        let json = await data.data;
+        //save le token dans le local storage
+        localStorage.setItem("token", json.token);
+        localStorage.setItem("idUser", json.id);
+        //rediriger vers la page d'accueil
+        this.$router.push("/home");
 
       }
     }

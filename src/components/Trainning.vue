@@ -17,6 +17,7 @@ import CardTrainning from "@/components/cardTrainning.vue";
 import DataChoose from "@/components/dataChoose.vue";
 import { useDateSelectStore } from "@/stores/dateSelect";
 import dataJson from "../assets/data.json";
+import axios from "axios";
 export default {
   name: "Trainning",
   components: {DataChoose, CardTrainning},
@@ -50,6 +51,22 @@ export default {
       }
       this.skills = this.dataJson[date].skills;
       this.warmUp = this.dataJson[date].warm_up;
+    },
+
+    async fetchTrainning(date) {
+      let data = await axios.get("http://localhost:4000/api/user/entrainement/" + localStorage.getItem("idUser"),
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "x-access-token" : localStorage.getItem("token")
+          }
+        }).then((response) => {
+        console.log(response.data)
+        this.skills = response.data.skills;
+        this.warmUp = response.data.warm_up;
+      });
+
     }
   },
   watch: {
@@ -61,12 +78,12 @@ export default {
     }
   },
   mounted() {
-    this.Print(this.dateSelectStore.dateFormatted)
+    this.fetchTrainning(this.dateSelectStore.dateFormatted);
   },
   beforeMount() {
     this.dateSelectStore.$subscribe((mutation, state) => {
 
-      this.Print(this.dateSelectStore.dateFormatted);
+      this.fetchTrainning(this.dateSelectStore.dateFormatted);
     });
   }
 
