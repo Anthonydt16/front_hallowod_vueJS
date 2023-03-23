@@ -1,0 +1,21 @@
+.container_trainning{
+  .container_train{
+    overflow-y : scroll;
+  }
+  .container_trainning_header{
+    display: flex;
+    justify-content: center;
+    background-color: $background;
+    $margin: $margin;
+    span{
+      cursor: pointer;
+      margin:$margin;
+      color: $colorSecondary;
+      transition: all 0.3s ease;
+      padding: $padding;
+      &.active{
+        border-bottom: 2px solid $colorPrimary;
+      }
+    }
+  }
+}

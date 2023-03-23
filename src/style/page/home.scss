@@ -1,0 +1,12 @@
+.container_home{
+  background-image: url('../assets/background_home.png');
+  background-size: cover;
+  //fixed pour que l'image ne bouge pas
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center;
+  //mettre un filtre sur l'image
+  background-color: rgba($colorPrimary,0.2);
+  padding-bottom: $padding_large;
+  height: 100%;
+}

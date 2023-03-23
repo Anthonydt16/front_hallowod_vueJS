@@ -1,0 +1,102 @@
+$colorPrimary: #6461FC;
+$colorSecondary: #F7F7F7;
+$colorTertiary: #252525;
+$background: #212122;
+@font-face {
+  font-family: 'poppinBlack';
+  src: url('font/poppins-black.ttf');
+}
+@font-face {
+  font-family: 'poppinBold';
+  src: url('font/poppins-bold.ttf');
+}
+@font-face {
+  font-family: 'poppinSemiBold';
+  src: url('font/poppins-semibold.ttf');
+}
+@font-face {
+  font-family: 'poppinMedium';
+  src: url('font/poppins-medium.ttf');
+}
+
+$fontFamilyPrimary: 'poppinSemiBold', 'Roboto', sans-serif;
+$fontTitle: 'poppinBold', 'Roboto', sans-serif;
+$font-size-big: 22px;
+$font-size: 16px;
+$font-size-small: 14px;
+
+$margin: 10px;
+$margin_small: 5px;
+$margin_large: 20px;
+$padding: 10px;
+$padding_small: 5px;
+$padding_large: 20px;
+
+body {
+  margin: 0;
+  font-size: $font-size-small;
+  font-family: $fontFamilyPrimary;
+  h1{
+    font-family: $fontTitle;
+  }
+  color: $colorPrimary;
+  background-color: $background;
+
+  a{
+    color: $colorPrimary;
+  }
+
+  .input[type='text'], .input[type='password']{
+
+    background: $colorSecondary;
+    border-radius: 10px;
+    height: 30px;
+    padding: 0 10px;
+    color: $colorTertiary;
+    &::placeholder{
+      color: rgba($colorTertiary, 0.3);
+    }
+    margin: 0 10px;
+    &:focus{
+      outline: none;
+    }
+
+  }
+  .input[type="checkbox"]{
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 100px;
+    background: $colorSecondary;
+    margin: 0 10px;
+    &:checked{
+      background: $colorPrimary;
+      //faire le check
+        &:after{
+            content: "";
+            display: block;
+            width: 10px;
+            height: 10px;
+            border-radius: 100px;
+            background: $colorSecondary;
+            margin: 5px;
+        }
+    }
+  }
+  //style button
+  .button{
+    cursor: pointer;
+    background: $colorPrimary;
+    border-radius: 10px;
+    height: 30px;
+    color: $colorSecondary;
+    margin: 0 10px;
+    border: 0px;
+    padding: 0 40px;
+    &:active{
+        background: darken($colorPrimary, 10%);
+    }
+  }
+}
+
+

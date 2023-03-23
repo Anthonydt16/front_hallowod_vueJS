@@ -1,0 +1,12 @@
+.container_navbar{
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color:$colorTertiary;
+  padding: 1rem 0;
+  img{
+    margin : 0 1rem;
+  }
+}

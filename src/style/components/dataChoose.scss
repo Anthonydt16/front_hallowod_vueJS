@@ -1,0 +1,18 @@
+.container_dateSelect{
+  color: $colorSecondary;
+  display: flex;
+  justify-content: center;
+  .container_dateSelect_div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: $font-size-big;
+    margin: $margin_large;
+  }
+  .chevron{
+    cursor: pointer;
+    &.droite{
+      transform: rotate(180deg);
+    }
+  }
+}

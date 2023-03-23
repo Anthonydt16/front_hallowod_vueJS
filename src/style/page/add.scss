@@ -1,0 +1,39 @@
+.container_add {
+  h1{
+    text-align: center;
+  }
+  .container_inputFile {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    #myFile{
+      display: none;
+    }
+    .inputFile {
+      img {
+        margin: auto;
+      }
+
+      border-radius: 50px;
+      background-color: $colorSecondary;
+      width: 100px;
+      height: 100px;
+      display: flex;
+    }
+
+    button {
+      margin-top: 10px;
+      border-radius: 50px;
+      background-color: $colorPrimary;
+      color: $colorTertiary;
+      width: 100px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
