@@ -1,0 +1,12 @@
+.container_card_Trainning_Add{
+  background: rgba($colorPrimary, 0.1);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.4);
+  border-radius: 19px;
+  color: $colorSecondary;
+  padding: $padding_large;
+  margin: $margin_large;
+  img{
+    width: 50px;
+    height: 50px;
+  }
+}

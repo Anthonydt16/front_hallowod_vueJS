@@ -1,20 +1,19 @@
-<link rel="stylesheet" href="../style/setting.scss">
 <template>
-<div class="container_cardTrainning">
-  <h2>{{ title }}</h2>
-  <div class="container_cardTrainning_style">
-    <div class="container_trainning_trainning">
-      <div class="container_trainning" v-for="item in data">
-        <p>{{item}}</p>
+  <div class="container_cardTrainning">
+    <h2>{{ title }}</h2>
+    <div class="container_cardTrainning_style">
+      <div class="container_trainning_trainning">
+        <div class="container_trainning" v-for="item in contenu" :key="item">
+          <p>{{item}}</p>
+        </div>
       </div>
+      <img src="../assets/warmup.jpg" class="warmupImg" alt="warmup">
     </div>
-    <img src="../assets/warmup.jpg" class="warmupImg" alt="warmup">
   </div>
-
-</div>
 </template>
 
 <script>
+import { useDateSelectStore } from "@/stores/dateSelect";
 export default {
   name: "cardTrainning",
   props: {
@@ -23,23 +22,40 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      title: ""
+  data: () => ({
+    title: "",
+    contenu: [],
+    dateSelectStore:useDateSelectStore(),
+  }),
+  mounted() {
+    this.updateData();
+  },
+  watch: {
+    data: function (newVal, oldVal) {
+      this.updateData();
     }
   },
-  mounted() {
-    if (this.data === null) {
-      return;
+  methods: {
+    updateData() {
+      console.log(this.data)
+      if (!this.data || this.data.length === 0) {
+        this.contenu = [];
+        this.title = "Vide aujourd'hui";
+        return;
+      }
+      const exercices = this.data[0].exercices;
+      this.title = exercices.nom;
+      this.contenu = exercices.contenu.split(",");
     }
-    if (this.title === "") {
-      this.title = this.data[0];
-      this.data.shift();
-    }
+  },
+  beforeMount() {
+    this.dateSelectStore.$subscribe((mutation, state) => {
+      console.log("dateChange")
+      this.updateData();
+    });
   }
-}
+};
 </script>
 
 <style scoped>
-
 </style>

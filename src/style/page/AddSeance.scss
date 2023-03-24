@@ -1,0 +1,32 @@
+.container_add_seance{
+  background-image: url('../assets/background_home.png');
+  background-size: cover;
+  //fixed pour que l'image ne bouge pas
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center;
+  //mettre un filtre sur l'image
+  background-color: rgba($colorPrimary,0.2);
+  padding-bottom: $padding_large;
+  height: 84vh;
+  .container_trainning_header{
+    display: flex;
+    justify-content: center;
+    background-color: $background;
+    $margin: $margin;
+    span{
+      cursor: pointer;
+      margin:$margin;
+      color: $colorSecondary;
+      transition: all 0.3s ease;
+      padding: $padding;
+      &.active{
+        border-bottom: 2px solid $colorPrimary;
+      }
+    }
+  }
+  .container_dateSelect{
+
+  }
+
+}

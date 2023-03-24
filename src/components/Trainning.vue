@@ -1,8 +1,8 @@
 <template>
   <div class="container_trainning">
     <div class="container_trainning_header">
-      <span  v-bind:class="{ active: isActiveWarmUp }" @click="click('WarmUp')" >Warm up</span>
-      <span v-bind:class="{ active: isActiveSkills }" @click="click('Skills')">Skills</span>
+      <span :class="{ active: isActiveWarmUp }" @click="click('WarmUp')">Warm up</span>
+      <span :class="{ active: isActiveSkills }" @click="click('Skills')">Skills</span>
     </div>
     <DataChoose/>
     <div class="stopp">
@@ -16,8 +16,8 @@
 import CardTrainning from "@/components/cardTrainning.vue";
 import DataChoose from "@/components/dataChoose.vue";
 import { useDateSelectStore } from "@/stores/dateSelect";
-import dataJson from "../assets/data.json";
 import axios from "axios";
+
 export default {
   name: "Trainning",
   components: {DataChoose, CardTrainning},
@@ -25,56 +25,41 @@ export default {
     return {
       isActiveWarmUp: true,
       isActiveSkills: false,
-      dateSelectStore:useDateSelectStore(),
-      dataJson: dataJson,
+      dateSelectStore: useDateSelectStore(),
       skills: null,
       warmUp: null
     }
   },
   methods: {
-    click: function (item) {
-      if (item == 'WarmUp') {
-        this.isActiveWarmUp = true;
-        this.isActiveSkills = false;
-      } else {
-        this.isActiveWarmUp = false;
-        this.isActiveSkills = true;
-      }
-    },
-    Print: function (date) {
-      //affiche la data qui à en clé la même date
-      console.log(this.dataJson[date]);
-      if (this.dataJson[date] == undefined) {
-        this.skills = null;
-        this.warmUp = null;
-        return;
-      }
-      this.skills = this.dataJson[date].skills;
-      this.warmUp = this.dataJson[date].warm_up;
+    click(item) {
+      this.isActiveWarmUp = item === "WarmUp";
+      this.isActiveSkills = item === "Skills";
     },
 
     async fetchTrainning(date) {
-      let data = await axios.get("http://localhost:4000/api/user/entrainement/" + localStorage.getItem("idUser"),
-        {
+      try {
+        const response = await axios.get(`http://localhost:4000/api/user/entrainement/${localStorage.getItem("idUser")}`, {
           headers: {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
-            "x-access-token" : localStorage.getItem("token")
+            "x-access-token": localStorage.getItem("token")
           }
-        }).then((response) => {
-        console.log(response.data)
-        this.skills = response.data.skills;
-        this.warmUp = response.data.warm_up;
-      });
-
-    }
-  },
-  watch: {
-    skills: function (val) {
-      console.log(val);
-    },
-    warmUp: function (val) {
-      console.log(val);
+        });
+        const data = response.data;
+        const trainingData = data.find(element => {
+          const dateFetch = new Date(element.date_entrainement);
+          return date === dateFetch.toLocaleDateString();
+        });
+        if (trainingData) {
+          this.skills = trainingData.skills;
+          this.warmUp = trainingData.warm_ups;
+        } else {
+          this.skills = null;
+          this.warmUp = null;
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   },
   mounted() {
@@ -82,13 +67,12 @@ export default {
   },
   beforeMount() {
     this.dateSelectStore.$subscribe((mutation, state) => {
-
       this.fetchTrainning(this.dateSelectStore.dateFormatted);
     });
   }
-
 }
 </script>
+
 <style scoped>
 
 </style>

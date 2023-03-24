@@ -26,13 +26,6 @@ export default {
       return this.dateSelect.toLocaleDateString();
     }
   },
-  props: {
-    date: {
-      type: Array,
-      required: true
-    },
-
-  },
   methods: {
     next() {
       //dateSelect change elle prend plus 1 jours

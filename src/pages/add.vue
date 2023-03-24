@@ -5,6 +5,7 @@
       <div class="inputFile" @click="inputFile()"><img src="../assets/bookmark.svg" alt=""></div>
       <input type="file" id="myFile" name="filename" />
       <button class="button" @click="upload()">Upload</button>
+      <button class="button" @click="addSeance()">Ajouter ça séance</button>
     </div>
 
   </div>
@@ -12,11 +13,19 @@
 
 <script>
 import axios from "axios";
+import AddSeance from "@/components/AddSeance.vue";
 
 export default {
   name: "add",
+  computed: {
+    AddSeance() {
+      return AddSeance
+    }
+  },
   methods: {
-
+    addSeance() {
+      this.$router.push("/addSeance");
+    },
     inputFile() {
       document.getElementById("myFile").click();
     },
@@ -50,6 +59,7 @@ export default {
           const index = array.indexOf(el);
           //Split ou il y a plus de 2 \n
           let ele = el.split(/[\r\n]{2,}/g);
+
           json = {
             ...json,
             [days[index]]: {
@@ -88,16 +98,16 @@ export default {
                 });
                 console.log(warmUp, "warmUp");
                 console.log(skills, "skills");
-                json[days[index]].warmUp = warmUp;
-                json[days[index]].skills = skills;
+                json[days[index]].warmUp.push(warmUp);
+                json[days[index]].skills.push(skills);
                 if (days[index] !== "vide") {
 
                   json[days[index]].date_entrainement = getDaysToDate(index);
 
                   let data = await axios.post("http://localhost:4000/api/entrainement/", {
                     date: json[days[index]].date_entrainement,
-                    warm_up: json[days[index]].warmUp,
-                    skills: json[days[index]].skills,
+                    warmup: json[days[index]].warmUp,
+                    skill: json[days[index]].skills,
                     idUser: localStorage.getItem("idUser")
                   },
                     {
