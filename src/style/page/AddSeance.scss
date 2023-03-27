@@ -8,7 +8,7 @@
   //mettre un filtre sur l'image
   background-color: rgba($colorPrimary,0.2);
   padding-bottom: $padding_large;
-  height: 84vh;
+  min-height: 84vh;
   .container_trainning_header{
     display: flex;
     justify-content: center;
@@ -24,9 +24,14 @@
         border-bottom: 2px solid $colorPrimary;
       }
     }
+
   }
   .container_dateSelect{
 
   }
-
+  .card_trainning_add{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
 }

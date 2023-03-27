@@ -5,9 +5,11 @@
       <span :class="{ active: isActiveSkills }" @click="click('Skills')">Skills</span>
     </div>
     <DataChoose/>
-    <div class="stopp">
-      <CardTrainning :data="skills" v-if="isActiveSkills" />
-      <CardTrainning :data="warmUp" v-if="isActiveWarmUp" />
+    <div class="stopp" v-for="item in skills" v-if="isActiveSkills" :key="item">
+      <CardTrainning :data="item" v-if="isActiveSkills" />
+    </div>
+    <div class="stopp" v-for="item in warmUp" v-if="isActiveWarmUp" :key="item">
+      <CardTrainning :data="item" v-if="isActiveWarmUp" />
     </div>
   </div>
 </template>
@@ -46,18 +48,31 @@ export default {
           }
         });
         const data = response.data;
-        const trainingData = data.find(element => {
-          const dateFetch = new Date(element.date_entrainement);
-          return date === dateFetch.toLocaleDateString();
-        });
-        if (trainingData) {
-          this.skills = trainingData.skills;
-          this.warmUp = trainingData.warm_ups;
-        } else {
+        console.log(data)
+        if (data === "No data found") {
           this.skills = null;
           this.warmUp = null;
+        }else{
+          //si le code erreur et 401 alors on redirige vers la page de connexion
+          const trainingData = data.find(element => {
+            const dateFetch = new Date(element.date_entrainement);
+            return date === dateFetch.toLocaleDateString();
+          });
+          if (trainingData) {
+            this.skills = trainingData.skills;
+            this.warmUp = trainingData.warm_ups;
+          } else {
+            this.skills = null;
+            this.warmUp = null;
+          }
         }
+
       } catch (error) {
+        //si l'erreur et un 401 alors on redirige vers la page de connexion
+        console.log(error)
+        if (error.response.status === 401) {
+          this.$router.push("/connexion");
+        }
         console.log(error);
       }
     }

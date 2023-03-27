@@ -4,7 +4,7 @@
     <div class="container_cardTrainning_style">
       <div class="container_trainning_trainning">
         <div class="container_trainning" v-for="item in contenu" :key="item">
-          <p>{{item}}</p>
+          <p>{{(item == null)? "Vide":item}}</p>
         </div>
       </div>
       <img src="../assets/warmup.jpg" class="warmupImg" alt="warmup">
@@ -37,20 +37,18 @@ export default {
   },
   methods: {
     updateData() {
-      console.log(this.data)
       if (!this.data || this.data.length === 0) {
         this.contenu = [];
         this.title = "Vide aujourd'hui";
         return;
       }
-      const exercices = this.data[0].exercices;
+      const exercices = this.data.exercices;
       this.title = exercices.nom;
       this.contenu = exercices.contenu.split(",");
     }
   },
   beforeMount() {
     this.dateSelectStore.$subscribe((mutation, state) => {
-      console.log("dateChange")
       this.updateData();
     });
   }

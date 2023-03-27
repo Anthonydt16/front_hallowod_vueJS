@@ -36,6 +36,24 @@ body {
   margin: 0;
   font-size: $font-size-small;
   font-family: $fontFamilyPrimary;
+  div.app{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: stretch;
+  }
+  main{
+    overflow-y: scroll;
+    height: 78vh;
+    @media only screen and (max-width: 600px) {
+      height: 86vh !important;
+    }
+    &::-webkit-scrollbar{
+      display: none;
+    }
+
+  }
   h1{
     font-family: $fontTitle;
   }

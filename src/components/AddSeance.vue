@@ -3,10 +3,12 @@
     <div class="container_trainning_header">
       <span :class="{ active: isActiveWarmUp }" @click="click('WarmUp')">Warm up</span>
       <span :class="{ active: isActiveSkills }" @click="click('Skills')">Skills</span>
-      <DataChoose/>
+
     </div>
+    <DataChoose/>
     <div class="card_trainning_add">
-      <CardTrainningAdd/>
+      <CardTrainningAdd :typeTrainning="warmup" v-if="isActiveWarmUp"/>
+      <CardTrainningAdd :typeTrainning="skills" v-if="isActiveSkills"/>
     </div>
   </div>
 </template>
@@ -21,8 +23,17 @@ export default {
     return {
       isActiveWarmUp: true,
       isActiveSkills: false,
+      warmup: "warmup",
+      skills: "skills"
     }
   },
+  methods: {
+    click(item) {
+      this.isActiveWarmUp = item === "WarmUp";
+      this.isActiveSkills = item === "Skills";
+    },
+
+  }
 }
 </script>
 
