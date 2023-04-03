@@ -8,8 +8,8 @@
     <div class="stopp" v-for="item in skills" v-if="isActiveSkills" :key="item">
       <CardTrainning :data="item" v-if="isActiveSkills" />
     </div>
-    <div class="stopp" v-for="item in warmUp" v-if="isActiveWarmUp" :key="item">
-      <CardTrainning :data="item" v-if="isActiveWarmUp" />
+    <div class="stopp" v-for="item in warmUp"  v-if="isActiveWarmUp" :key="item">
+      <CardTrainning :data="item"  v-if="isActiveWarmUp" />
     </div>
   </div>
 </template>
@@ -29,7 +29,8 @@ export default {
       isActiveSkills: false,
       dateSelectStore: useDateSelectStore(),
       skills: null,
-      warmUp: null
+      warmUp: null,
+      idTraining: null
     }
   },
   methods: {
@@ -40,6 +41,7 @@ export default {
 
     async fetchTrainning(date) {
       try {
+        console.log(localStorage.getItem("token"))
         const response = await axios.get(`http://localhost:4000/api/user/entrainement/${localStorage.getItem("idUser")}`, {
           headers: {
             "Content-Type": "application/json",

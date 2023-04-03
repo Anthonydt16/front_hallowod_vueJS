@@ -5,12 +5,25 @@
   color: $colorSecondary;
   padding: $padding_large;
   margin: $margin_large;
-  h2{
-    font-family: $fontTitle;
-    font-size: $font-size-big;
-    color: transparent;
-    -webkit-text-stroke: 1px $colorSecondary;
+  .title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    h2{
+      font-family: $fontTitle;
+      font-size: $font-size-big;
+      color: transparent;
+      -webkit-text-stroke: 1px $colorSecondary;
+    }
+    img{
+      width: 30px;
+      height: 30px;
+      &:hover{
+        cursor: pointer;
+      }
+    }
   }
+
 
   img.warmupImg{
      width: 100%;

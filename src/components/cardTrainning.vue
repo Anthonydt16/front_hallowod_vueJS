@@ -1,30 +1,38 @@
 <template>
   <div class="container_cardTrainning">
-    <h2>{{ title }}</h2>
+    <div class="title">
+      <h2>{{ title }} </h2>
+      <img src="@/assets/poubelle.svg" alt="poubelle" @click="this.delete()" />
+    </div>
     <div class="container_cardTrainning_style">
       <div class="container_trainning_trainning">
         <div class="container_trainning" v-for="item in contenu" :key="item">
           <p>{{(item == null)? "Vide":item}}</p>
         </div>
       </div>
-      <img src="../assets/warmup.jpg" class="warmupImg" alt="warmup">
     </div>
   </div>
 </template>
 
 <script>
 import { useDateSelectStore } from "@/stores/dateSelect";
+import axios from "axios";
 export default {
   name: "cardTrainning",
   props: {
     data: {
       type: Array,
       required: true
+    },
+    id: {
+      type: Number,
+      required: true
     }
   },
   data: () => ({
     title: "",
     contenu: [],
+    id: 0,
     dateSelectStore:useDateSelectStore(),
   }),
   mounted() {
@@ -36,6 +44,19 @@ export default {
     }
   },
   methods: {
+    async delete() {
+      let data = await axios.delete(`http://localhost:4000/api/exercice/${this.id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "x-access-token": localStorage.getItem("token")
+        }
+      });
+      if (data.status === 201) {
+        //refresh les donnée
+        this.updateData();
+      }
+    },
     updateData() {
       if (!this.data || this.data.length === 0) {
         this.contenu = [];
@@ -43,7 +64,9 @@ export default {
         return;
       }
       const exercices = this.data.exercices;
+      console.log(exercices)
       this.title = exercices.nom;
+      this.id = exercices.id;
       this.contenu = exercices.contenu.split(",");
     }
   },
