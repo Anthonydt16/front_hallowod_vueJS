@@ -13,7 +13,7 @@ import AddSeance from "@/components/AddSeance.vue";
 import inscription from "@/pages/inscription.vue";
 //toutes les routes sont bloquer si il y a pas le un cookie token
 const routes = [
-    { path: '/', component: home },
+    { path: '/', component: accueil },
     {path: '/home', component: home},
     {path: '/add', component: add},
     {path: '/connexion', component: formulaireConnexion},
