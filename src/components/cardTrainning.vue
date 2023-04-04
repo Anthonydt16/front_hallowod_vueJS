@@ -46,7 +46,7 @@ export default {
   methods: {
 
     async delete() {
-      let data = await axios.delete(`http://localhost:4000/api/exercice/${this.id}`, {
+      let data = await axios.delete(`http://localhost:3000/api/exercice/${this.id}`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -56,7 +56,7 @@ export default {
       console.log(data)
       if (data.status === 201) {
         //l'element a bien été supprimé donc on cache le composant
-
+        this.$emit("delete");
       }
     },
     updateData() {

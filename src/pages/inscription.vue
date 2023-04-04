@@ -1,6 +1,6 @@
 <template>
-  <div class="container_formulaireConnexion">
-    <h1>Formulaire de connexion</h1>
+  <div class="container_formulaireInscription">
+    <h1>Formulaire inscription</h1>
     <div class="container_input">
       <input v-model="name" type="text" class="input" placeholder="Nom d'utilisateur">
       <input v-model="password" type="password" class="input" placeholder="mot de passe">
@@ -10,11 +10,6 @@
         <input type="checkbox" class="input" name="connectReste">
         <label for="connectReste">Restez connecter</label>
       </div>
-      <a href="#">Mot de passe oublié</a>
-    </div>
-    <div class="inscription">
-      <span>Vous n'avez pas de compte ?</span>
-      <a href="/inscription">Créer un compte</a>
     </div>
     <button @click="connect()" class="button">Connexion</button>
   </div>
@@ -25,7 +20,7 @@ import {createRouter as router} from "vue-router";
 import axios from "axios";
 
 export default {
-  name: "FormulaireConnexion",
+  name: "inscription",
   data() {
     return {
       name: "",
@@ -47,7 +42,7 @@ export default {
             'Access-Control-Allow-Origin': '*',
           }
         }
-        let data = await axios.post("http://localhost:3000/api/user/login", {
+        let data = await axios.post("http://localhost:3000/api/user/register", {
           identifiant: this.name,
           password: this.password
         }, config);
@@ -55,9 +50,7 @@ export default {
         //save le token dans le local storage
         localStorage.setItem("token", json.token);
         localStorage.setItem("idUser", json.id);
-        console.log(json)
-        //rediriger vers la page d'accueil
-        this.$router.push("/home");
+        this.$router.push("/connexion");
 
       }
     }

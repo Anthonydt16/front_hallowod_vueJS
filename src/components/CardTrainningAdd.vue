@@ -38,22 +38,19 @@ export default {
       donnee['skills'] = [];
       donnee['warmup'] = [];
       for (let i = 0; i < data.length; i++) {
-        dataValue.push(data[i].innerText);
-
-        console.log(dataValue)
-        console.log(this.typeTrainning)
-
-        dataValue.unshift(title[i].innerText)
-        donnee[this.typeTrainning] = dataValue
-        console.log(donnee[this.typeTrainning])
+        dataValue = {
+          title: title[i].innerText,
+          data: data[i].innerText
+        }
+        donnee[this.typeTrainning].push(dataValue)
       }
-      console.log(donnee)
       this.sendData(donnee['warmup'], donnee['skills']);
     },
     sendData(warm_ups, skills) {
       console.log(warm_ups)
       console.log(skills)
-      axios.post(`http://localhost:4000/api/entrainement/`, {
+      console.log(this.storeDateSelected.dateFormatted)
+      axios.post(`http://localhost:3000/api/entrainement/`, {
         date_entrainement: this.storeDateSelected.dateFormatted,
         warm_ups: warm_ups,
         skills: skills,

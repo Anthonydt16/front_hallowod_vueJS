@@ -10,14 +10,19 @@ import formulaireConnexion from "@/components/FormulaireConnexion.vue";
 import home from "@/pages/home.vue";
 import add from "@/pages/add.vue";
 import AddSeance from "@/components/AddSeance.vue";
+import inscription from "@/pages/inscription.vue";
 //toutes les routes sont bloquer si il y a pas le un cookie token
 const routes = [
-    { path: '/', component: accueil },
+    { path: '/', component: home },
     {path: '/home', component: home},
     {path: '/add', component: add},
     {path: '/connexion', component: formulaireConnexion},
-    {path: '/inscription', component: formulaireConnexion},
     {path: '/addSeance', component: AddSeance},
+    {path: '/search', component: home},
+    {path: '/message', component: home},
+    {path: '/user', component: home},
+    {path: '/inscription', component: inscription},
+
 ]
 
 const router = createRouter({

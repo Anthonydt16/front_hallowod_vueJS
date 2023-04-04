@@ -6,10 +6,10 @@
     </div>
     <DataChoose/>
     <div class="stopp" v-for="item in skills" v-if="isActiveSkills" :key="item">
-      <CardTrainning :data="item" v-if="isActiveSkills" />
+      <CardTrainning :data="item" v-if="isActiveSkills" @delete="fetchTrainning(this.dateSelectStore.dateFormatted)"/>
     </div>
     <div class="stopp" v-for="item in warmUp"  v-if="isActiveWarmUp" :key="item">
-      <CardTrainning :data="item"  v-if="isActiveWarmUp" />
+      <CardTrainning :data="item"  v-if="isActiveWarmUp" @delete="fetchTrainning(this.dateSelectStore.dateFormatted)"/>
     </div>
   </div>
 </template>
@@ -41,7 +41,7 @@ export default {
 
     async fetchTrainning(date) {
       try {
-        const response = await axios.get(`http://localhost:4000/api/user/entrainement/${localStorage.getItem("idUser")}`, {
+        const response = await axios.get(`http://localhost:3000/api/user/entrainement/${localStorage.getItem("idUser")}`, {
           headers: {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
@@ -61,7 +61,7 @@ export default {
             console.log(dateFetch.toLocaleDateString())
             console.log(date)
             //sauf si les skills et warm up sont null
-            return date === dateFetch.toLocaleDateString();
+            return dateFetch.toLocaleDateString() === date && (element.skills.length !== 0  || element.warm_ups.length !== 0);
           });
           console.log(trainingData)
           if (trainingData) {
@@ -75,12 +75,9 @@ export default {
         }
 
       } catch (error) {
-        //si l'erreur et un 401 alors on redirige vers la page de connexion
-        console.log(error)
-        if (error.response.status === 401) {
-          this.$router.push("/connexion");
-        }
-        console.log(error);
+
+        this.$router.push("/connexion");
+
       }
     }
   },
