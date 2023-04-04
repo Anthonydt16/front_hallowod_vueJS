@@ -41,7 +41,6 @@ export default {
 
     async fetchTrainning(date) {
       try {
-        console.log(localStorage.getItem("token"))
         const response = await axios.get(`http://localhost:4000/api/user/entrainement/${localStorage.getItem("idUser")}`, {
           headers: {
             "Content-Type": "application/json",
@@ -56,12 +55,18 @@ export default {
           this.warmUp = null;
         }else{
           //si le code erreur et 401 alors on redirige vers la page de connexion
+          console.log(data)
           const trainingData = data.find(element => {
             const dateFetch = new Date(element.date_entrainement);
+            console.log(dateFetch.toLocaleDateString())
+            console.log(date)
+            //sauf si les skills et warm up sont null
             return date === dateFetch.toLocaleDateString();
           });
+          console.log(trainingData)
           if (trainingData) {
             this.skills = trainingData.skills;
+            console.log(trainingData.skills)
             this.warmUp = trainingData.warm_ups;
           } else {
             this.skills = null;

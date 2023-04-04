@@ -44,6 +44,7 @@ export default {
     }
   },
   methods: {
+
     async delete() {
       let data = await axios.delete(`http://localhost:4000/api/exercice/${this.id}`, {
         headers: {
@@ -52,9 +53,10 @@ export default {
           "x-access-token": localStorage.getItem("token")
         }
       });
+      console.log(data)
       if (data.status === 201) {
-        //refresh les donnée
-        this.updateData();
+        //l'element a bien été supprimé donc on cache le composant
+
       }
     },
     updateData() {
@@ -64,7 +66,6 @@ export default {
         return;
       }
       const exercices = this.data.exercices;
-      console.log(exercices)
       this.title = exercices.nom;
       this.id = exercices.id;
       this.contenu = exercices.contenu.split(",");
