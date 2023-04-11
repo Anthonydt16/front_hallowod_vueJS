@@ -109,11 +109,13 @@ export default {
                 }
                 json[days[index]].warmUp = warmUp
                 json[days[index]].skills = skills
+
                 if (days[index] !== "vide") {
                   json[days[index]].date_entrainement = getDaysToDate(index);
                   json[days[index]].warmUp.data = json[days[index]].warmUp.data.join("\n");
                   json[days[index]].skills.data = json[days[index]].skills.data.join("\n");
                   console.log(json[days[index]])
+
                   let data = await axios.post("http://localhost:3000/api/entrainement/", {
                     date_entrainement: json[days[index]].date_entrainement,
                     warm_ups: [json[days[index]].warmUp],
