@@ -13,7 +13,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import { useDateSelectStore } from "@/stores/dateSelect";
 import axios from "axios";
@@ -53,7 +52,6 @@ export default {
           "x-access-token": localStorage.getItem("token")
         }
       });
-      console.log(data)
       if (data.status === 201) {
         //l'element a bien été supprimé donc on cache le composant
         this.$emit("delete");

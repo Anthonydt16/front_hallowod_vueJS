@@ -11,6 +11,8 @@ import home from "@/pages/home.vue";
 import add from "@/pages/add.vue";
 import AddSeance from "@/components/AddSeance.vue";
 import inscription from "@/pages/inscription.vue";
+import error from "@/pages/404.vue";
+
 //toutes les routes sont bloquer si il y a pas le un cookie token
 const routes = [
     { path: '/', component: accueil },
@@ -22,8 +24,18 @@ const routes = [
     {path: '/message', component: home},
     {path: '/user', component: home},
     {path: '/inscription', component: inscription},
-
+    {path: '/404', component: error},
 ]
+
+//route par defaut
+routes.push({ path: '/:pathMatch(.*)*', redirect: '/404' })
+
+//route si il y a pas de cookie token redirige vers la page de connexion
+if (document.cookie.indexOf('token') === -1) {
+    routes.push({ path: '/:pathMatch(.*)*', redirect: '/' })
+}
+
+
 
 const router = createRouter({
     history: createWebHistory(),

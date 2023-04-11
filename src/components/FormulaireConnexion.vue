@@ -53,9 +53,10 @@ export default {
         }, config);
         let json = await data.data;
         //save le token dans le local storage
+        console.log(json)
         localStorage.setItem("token", json.token);
         localStorage.setItem("idUser", json.id);
-        console.log(json)
+
         //rediriger vers la page d'accueil
         this.$router.push("/home");
 

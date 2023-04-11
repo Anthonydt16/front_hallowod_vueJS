@@ -58,15 +58,11 @@ export default {
           console.log(data)
           const trainingData = data.find(element => {
             const dateFetch = new Date(element.date_entrainement);
-            console.log(dateFetch.toLocaleDateString())
-            console.log(date)
             //sauf si les skills et warm up sont null
             return dateFetch.toLocaleDateString() === date && (element.skills.length !== 0  || element.warm_ups.length !== 0);
           });
-          console.log(trainingData)
           if (trainingData) {
             this.skills = trainingData.skills;
-            console.log(trainingData.skills)
             this.warmUp = trainingData.warm_ups;
           } else {
             this.skills = null;

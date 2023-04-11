@@ -107,12 +107,9 @@ export default {
                   title: warmUp[0],
                   data: warmUp.slice(1)
                 }
-                console.log(warmUp, "warmUp");
-                console.log(skills, "skills");
                 json[days[index]].warmUp = warmUp
                 json[days[index]].skills = skills
                 if (days[index] !== "vide") {
-
                   json[days[index]].date_entrainement = getDaysToDate(index);
                   json[days[index]].warmUp.data = json[days[index]].warmUp.data.join("\n");
                   json[days[index]].skills.data = json[days[index]].skills.data.join("\n");
@@ -130,14 +127,11 @@ export default {
                         "x-access-token" : localStorage.getItem("token")
                       }
                     });
-                  console.log(data);
                 }
 
               }
             }
           }
-          console.log(ele);
-          console.log(json);
         }
       }
     }

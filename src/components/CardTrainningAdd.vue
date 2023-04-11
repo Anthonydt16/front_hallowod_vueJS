@@ -47,9 +47,6 @@ export default {
       this.sendData(donnee['warmup'], donnee['skills']);
     },
     sendData(warm_ups, skills) {
-      console.log(warm_ups)
-      console.log(skills)
-      console.log(this.storeDateSelected.dateFormatted)
       axios.post(`http://localhost:3000/api/entrainement/`, {
         date_entrainement: this.storeDateSelected.dateFormatted,
         warm_ups: warm_ups,
@@ -63,7 +60,6 @@ export default {
         }
       }).then((response) => {
         if (response.status === 200) {
-          console.log(response.data);
         }
       }).catch((error) => {
         console.log(error);
