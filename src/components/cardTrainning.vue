@@ -6,9 +6,9 @@
     </div>
     <div class="container_cardTrainning_style">
       <div class="container_trainning_trainning">
-        <div class="container_trainning" v-for="item in contenu" :key="item">
-          <p>{{(item == null)? "Vide":item}}</p>
-        </div>
+        <p class="container_trainning" v-for="item in contenu" :key="item">
+          {{(item == null)? "Vide":item}}
+        </p>
       </div>
     </div>
   </div>
@@ -67,6 +67,11 @@ export default {
       this.title = exercices.nom;
       this.id = exercices.id;
       this.contenu = exercices.contenu.split(",");
+      if (this.contenu[0].includes("\n")) {
+        this.contenu = this.contenu[0].split("\n");
+      }
+
+
     }
   },
   beforeMount() {

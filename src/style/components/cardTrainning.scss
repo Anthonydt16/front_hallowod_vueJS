@@ -32,16 +32,13 @@
 
   .container_cardTrainning_style{
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center;
     .container_trainning_trainning{
       display: flex;
       flex-direction: column;
       .container_trainning{
-        .stopp{
-          overflow: scroll;
-          height: 58vh;
-        }
+        margin: $margin_small;
       }
     }
     .warmupImg{
