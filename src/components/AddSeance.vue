@@ -1,5 +1,6 @@
 <template>
   <div class="container_add_seance">
+
     <div class="container_trainning_header">
       <span :class="{ active: isActiveWarmUp }" @click="click('WarmUp')">Warm up</span>
       <span :class="{ active: isActiveSkills }" @click="click('Skills')">Skills</span>
@@ -24,7 +25,7 @@ export default {
       isActiveWarmUp: true,
       isActiveSkills: false,
       warmup: "warmup",
-      skills: "skills"
+      skills: "skills",
     }
   },
   methods: {

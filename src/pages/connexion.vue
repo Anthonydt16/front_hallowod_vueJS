@@ -7,10 +7,11 @@
 
 <script>
 import FormulaireConnexion from "@/components/FormulaireConnexion.vue";
+import PopUp from "@/components/popUp.vue";
 
 export default {
   name: "connexion",
-  components: {FormulaireConnexion},
+  components: {PopUp, FormulaireConnexion},
 
 }
 </script>

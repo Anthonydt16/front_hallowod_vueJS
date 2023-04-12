@@ -1,7 +1,12 @@
 <link rel="stylesheet" href="../style/page/add.scss">
 <template>
   <div class="container_add">
-
+    <div class="erreur" v-if="popup">
+      <p>{{this.erreur}}</p>
+    </div>
+    <div class="valide" v-if="popupV">
+      <p>{{this.message}}</p>
+    </div>
     <div class="container_inputFile">
       <h1>Ajouter un nouveau trainning</h1>
       <div class="inputFile" @click="inputFile()"><img src="../assets/bookmark.svg" alt=""></div>
@@ -22,6 +27,14 @@ export default {
   computed: {
     AddSeance() {
       return AddSeance
+    }
+  },
+  data() {
+    return {
+      erreur: "Voici l'erreur",
+      popup: false,
+      popupV: false,
+      message: "Voici le message"
     }
   },
   methods: {
@@ -46,6 +59,25 @@ export default {
         return dateTime.toLocaleDateString()
       }
       let file = document.getElementById("myFile").files[0];
+      //si l'input est vide alors on affiche un message d'erreur
+      if (file === undefined) {
+        this.popup = true;
+        this.erreur = "Veuillez choisir un fichier";
+        //attendre 2 secondes et enlever le message d'erreur
+        setTimeout(() => {
+          this.popup = false;
+        }, 2000);
+      }
+      //si le fichier est pas un txt alors on affiche un message d'erreur
+      if (file.type !== "text/plain") {
+        this.popup = true;
+        this.erreur = "Veuillez choisir un fichier en .txt";
+        //attendre 2 secondes et enlever le message d'erreur
+        setTimeout(() => {
+          this.popup = false;
+        }, 2000);
+      }
+
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onloadend = async function () {
@@ -114,21 +146,26 @@ export default {
                   json[days[index]].date_entrainement = getDaysToDate(index);
                   json[days[index]].warmUp.data = json[days[index]].warmUp.data.join("\n");
                   json[days[index]].skills.data = json[days[index]].skills.data.join("\n");
-                  console.log(json[days[index]])
+                  try {
+                    let data = await axios.post("http://localhost:3000/api/entrainement/", {
+                          date_entrainement: json[days[index]].date_entrainement,
+                          warm_ups: [json[days[index]].warmUp],
+                          skills: [json[days[index]].skills],
+                          idUser: localStorage.getItem("idUser")
+                        },
+                        {
+                          headers: {
+                            "Content-Type": "application/json",
+                            "Access-Control-Allow-Origin": "*",
+                            "x-access-token" : localStorage.getItem("token")
+                          }
+                        })
+                  }catch (e) {
+                    console.log(e)
+                    return;
+                  }
 
-                  let data = await axios.post("http://localhost:3000/api/entrainement/", {
-                    date_entrainement: json[days[index]].date_entrainement,
-                    warm_ups: [json[days[index]].warmUp],
-                    skills: [json[days[index]].skills],
-                    idUser: localStorage.getItem("idUser")
-                  },
-                    {
-                      headers: {
-                        "Content-Type": "application/json",
-                        "Access-Control-Allow-Origin": "*",
-                        "x-access-token" : localStorage.getItem("token")
-                      }
-                    });
+
                 }
 
               }

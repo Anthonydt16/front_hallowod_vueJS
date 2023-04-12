@@ -1,4 +1,10 @@
 <template >
+  <div class="erreur" v-if="popup">
+    <p>{{this.erreur}}</p>
+  </div>
+  <div class="valide" v-if="popupV">
+    <p>{{this.message}}</p>
+  </div>
   <div v-for="item in ContainerAdd" :key="item">
     <div v-html="item"></div>
   </div>
@@ -60,9 +66,18 @@ export default {
         }
       }).then((response) => {
         if (response.status === 200) {
+          this.popupV = true;
+          this.message = "Séance enregistrée";
+          setTimeout(() => {
+            this.popupV = false;
+          }, 2000);
         }
       }).catch((error) => {
-        console.log(error);
+        this.popup = true;
+        this.erreur = error;
+        setTimeout(() => {
+          this.popup = false;
+        }, 2000);
       });
     },
 
@@ -73,6 +88,10 @@ export default {
   data: () => ({
     ContainerAdd: [],
     storeDateSelected : useDateSelectStore(),
+    erreur: "Voici l'erreur",
+    popup : false,
+    message: "Séance enregistrée",
+    popupV : false
   }),
   beforeMount() {
     this.storeDateSelected.$subscribe((mutation, state) => {

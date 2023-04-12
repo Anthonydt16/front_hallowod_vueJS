@@ -2,12 +2,14 @@
 
 import Header from "@/components/header.vue";
 import Navbar from "@/components/navbar.vue";
+import PopUp from "@/components/popUp.vue";
+
 </script>
 
 <template>
   <Header></Header>
   <main>
-    <router-view></router-view>
+    <router-view/>
   </main>
   <navbar/>
 </template>

@@ -8,6 +8,18 @@
   h1{
     text-align: center;
   }
+  .erreur, .valide{
+    color: white;
+    background-color: red;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    width: 100%;
+    p{
+      text-align: center;
+    }
+  }
   .container_inputFile {
     cursor: pointer;
     display: flex;
@@ -15,6 +27,10 @@
     flex-direction: column;
     align-items: center;
 
+
+    .valide{
+      background-color: green;
+    }
     #myFile{
       display: none;
     }

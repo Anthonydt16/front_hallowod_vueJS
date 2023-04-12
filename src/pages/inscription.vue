@@ -1,6 +1,10 @@
+<link rel="stylesheet" href="../style/page/add.scss">
 <template>
   <div class="container_formulaireInscription">
     <h1>Formulaire inscription</h1>
+    <div class="erreur" v-if="popup">
+      <p>{{this.erreur}}</p>
+    </div>
     <div class="container_input">
       <input v-model="name" type="text" class="input" placeholder="Nom d'utilisateur">
       <input v-model="password" type="password" class="input" placeholder="mot de passe">
@@ -11,7 +15,7 @@
         <label for="connectReste">Restez connecter</label>
       </div>
     </div>
-    <button @click="connect()" class="button">Connexion</button>
+    <button @click="connect()" class="button">Inscription</button>
   </div>
 </template>
 
@@ -24,7 +28,9 @@ export default {
   data() {
     return {
       name: "",
-      password: ""
+      password: "",
+      erreur: "Voici l'erreur",
+      popup : false
     }
   },
   methods: {
@@ -45,7 +51,20 @@ export default {
         let data = await axios.post("http://localhost:3000/api/user/register", {
           identifiant: this.name,
           password: this.password
-        }, config);
+        }, config).catch((err) => {
+          this.popup = true;
+          this.erreur = err;
+        });
+        if (json.token === undefined) {
+          this.popup = true;
+          this.erreur = json.message;
+          return;
+        }
+        if (json.id === null) {
+          this.popup = true;
+          this.erreur = json.message;
+          return;
+        }
         let json = await data.data;
         //save le token dans le local storage
         localStorage.setItem("token", json.token);

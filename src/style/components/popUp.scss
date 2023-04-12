@@ -1,0 +1,40 @@
+.popUp{
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: auto;
+  width: 100%;
+  color: white;
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  &.active{
+    display: flex;
+    animation: slideIn 0.5s ease-in-out;
+  }
+  &.inactive{
+    display: none;
+    animation: slideOut 0.5s ease-in-out;
+  }
+  p{
+    margin-left: $margin;
+  }
+
+  @keyframes slideIn {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  @keyframes slideOut {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+}
