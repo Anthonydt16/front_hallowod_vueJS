@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="../style/page/inscription.scss">
 <link rel="stylesheet" href="../style/page/add.scss">
 <template>
   <div class="container_add">
@@ -8,12 +9,12 @@
       <p>{{this.message}}</p>
     </div>
     <div class="container_inputFile">
-      <h1>Ajouter un nouveau trainning</h1>
+      <h1>Ajouter un nouveau training</h1>
       <div class="inputFile" @click="inputFile()"><img src="../assets/bookmark.svg" alt=""></div>
       <input type="file" id="myFile" name="filename" />
       <button class="button" @click="upload()">Upload</button>
     </div>
-    <button class="button" @click="addSeance()">Ajouter ça séance</button>
+    <button class="button" @click="addSeance()">Ajouter vôtre séance</button>
   </div>
 
 </template>

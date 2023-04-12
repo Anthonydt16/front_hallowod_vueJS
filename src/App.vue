@@ -15,7 +15,5 @@ import PopUp from "@/components/popUp.vue";
 </template>
 
 <style scoped>
-main{
-  height: 84vh;
-}
+
 </style>

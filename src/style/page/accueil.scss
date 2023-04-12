@@ -1,3 +1,54 @@
 .accueil{
+  height: 100%;
+  position: relative;
+  .frist_container{
+    height: 100%;
+    background-image: url(/src/assets/salle-de-sport-femme-tremblay-en-france.png);
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center;
+    //mettre un after
+    &:after{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba($colorPrimary,0.6);
+    }
+    h2{
+      z-index: 1;
+      color: $colorSecondary;
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-top: 10%;
+      position: relative;
+      span{
+        color: $colorTertiary;
+        font-size: 3rem;
+        font-weight: 900;
+        font-family: $fontTitle;
+        &.lien{
+            color: $colorSecondary;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-top: 10%;
+            cursor: pointer;
+          transition: all 0.3s ease;
+          &:hover{
+            color: $colorTertiary;
+            border-bottom: 2px solid $colorTertiary;
 
+          }
+        }
+      }
+    }
+  }
+  video{
+    width: 100%;
+  }
 }

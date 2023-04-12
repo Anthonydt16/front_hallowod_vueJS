@@ -5,6 +5,9 @@
     <div class="erreur" v-if="popup">
       <p>{{this.erreur}}</p>
     </div>
+    <div class="valide" v-if="popupV">
+      <p>{{this.message}}</p>
+    </div>
     <div class="container_input">
       <input v-model="name" type="text" class="input" placeholder="Nom d'utilisateur">
       <input v-model="password" type="password" class="input" placeholder="mot de passe">
@@ -30,11 +33,16 @@ export default {
       name: "",
       password: "",
       erreur: "Voici l'erreur",
-      popup : false
+      popup : false,
+      popupV: false,
+      message: "Voici le message"
     }
   },
   methods: {
     async connect() {
+      this.popup = false;
+      this.popupV = false;
+
       //si les inputs sont vide alors on affiche un message d'erreur
       if (this.name === "" || this.password === "") {
         alert("Veuillez remplir les champs");
@@ -53,19 +61,11 @@ export default {
           password: this.password
         }, config).catch((err) => {
           this.popup = true;
-          this.erreur = err;
+          this.erreur = "Erreur d'inscription";
         });
-        if (json.token === undefined) {
-          this.popup = true;
-          this.erreur = json.message;
-          return;
-        }
-        if (json.id === null) {
-          this.popup = true;
-          this.erreur = json.message;
-          return;
-        }
         let json = await data.data;
+        this.popupV = true;
+        this.message = "compte créer avec succès";
         //save le token dans le local storage
         localStorage.setItem("token", json.token);
         localStorage.setItem("idUser", json.id);

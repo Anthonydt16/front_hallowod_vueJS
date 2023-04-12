@@ -47,6 +47,7 @@ body {
     overflow-y: scroll;
     height: 78vh;
     @media only screen and (max-width: 600px) {
+      height: 85vh;
     }
     &::-webkit-scrollbar{
       display: none;

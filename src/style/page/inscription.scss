@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  .erreur{
+  .erreur, .valide{
     color: white;
     background-color: red;
     position: absolute;
@@ -14,6 +14,9 @@
     p{
       text-align: center;
     }
+  }
+  .valide{
+    background-color: green;
   }
   div.container_input{
     display: flex;

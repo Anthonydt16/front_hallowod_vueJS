@@ -1,11 +1,11 @@
 
 <template>
   <div class="container_dateSelect">
-    <img src="../assets/chevron.svg" alt="" class="chevron" @click="next()">
+    <img src="../assets/chevron.svg" alt="" class="chevron" @click="previous()">
     <div class="container_dateSelect_div">
       {{dateString}}
     </div>
-    <img src="../assets/chevron.svg" alt="" class="chevron droite" @click="previous()">
+    <img src="../assets/chevron.svg" alt="" class="chevron droite" @click="next()">
   </div>
 </template>
 
